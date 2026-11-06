@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buscador Pixabay con Filtro Antisesgos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Pixabay · Filtro de Sesgos</h1>
+    <div class="topbar-right">
+      <span id="pixabay-mode" class="pill">Pixabay: …</span>
+      <span id="db-mode" class="pill">MongoDB: …</span>
+      <label class="user-field">
+        Usuario
+        <input id="user-input" type="text" maxlength="40" placeholder="tu nombre" />
+      </label>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="card search-card" aria-labelledby="search-title">
+      <div class="card-head dashed">
+        <h2 id="search-title"><span class="icon" data-icon="search"></span> Componente: Buscador con filtro algorítmico</h2>
+        <button id="filter-toggle" type="button" class="badge badge-toggle badge-green" aria-pressed="true"
+                title="Activar / desactivar el filtro antisesgos">
+          <span class="icon"></span> <span class="label">Filtro Antisesgo: ACTIVO</span>
+        </button>
+      </div>
+
+      <form id="search-form" class="search-row" autocomplete="off">
+        <input id="search-input" type="search" maxlength="100"
+               placeholder="Escribe palabra clave (ej: 'black', 'poor', 'nature')..." aria-label="Palabra clave" />
+        <select id="lang-select" aria-label="Idioma de búsqueda">
+          <option value="es">ES</option>
+          <option value="en">EN</option>
+        </select>
+        <button type="submit" class="btn btn-blue"><span class="icon" data-icon="search"></span> [ Buscar ]</button>
+      </form>
+
+      <p id="live-warning" class="live-warning" hidden></p>
+
+      <div class="chips">
+        <span class="chips-label">Palabras clave de prueba:</span>
+        <button type="button" class="chip chip-warn" data-q="black">"BLACK"</button>
+        <button type="button" class="chip chip-warn" data-q="poor">"POOR"</button>
+        <button type="button" class="chip" data-q="nature">"NATURE"</button>
+        <button type="button" class="chip" data-q="technology">"TECHNOLOGY"</button>
+      </div>
+
+      <div id="filter-report" class="filter-report" hidden></div>
+    </section>
+
+    <aside class="card history-card" aria-labelledby="history-title">
+      <div class="card-head dashed">
+        <h2 id="history-title"><span class="icon" data-icon="db"></span> Historial (MongoDB)</h2>
+        <button id="clear-history" type="button" class="btn btn-small">Borrar</button>
+      </div>
+      <div id="history-stats" class="history-stats"></div>
+      <ul id="history-list" class="history-list"></ul>
+    </aside>
+
+    <section class="card results-card" aria-label="Resultados">
+      <div class="tabs-row">
+        <div class="tabs" role="tablist">
+          <button type="button" class="tab active" data-tab="gallery" role="tab">
+            <span class="icon" data-icon="image"></span> Galería Pixabay (<span id="gallery-count">0</span>)
+          </button>
+          <button type="button" class="tab" data-tab="collection" role="tab">
+            <span class="icon" data-icon="db"></span> Colección MongoDB (<span id="collection-count">0</span>)
+          </button>
+        </div>
+        <span class="wire-label">[ Wireframe View: Pixabay API Response Grid ]</span>
+      </div>
+
+      <div id="status" class="status">Escribe un término y pulsa Buscar.</div>
+      <div id="gallery" class="grid" data-panel="gallery"></div>
+      <div id="collection" class="grid" data-panel="collection" hidden></div>
+    </section>
+  </main>
+
+  <script src="/shared/biasFilter.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
